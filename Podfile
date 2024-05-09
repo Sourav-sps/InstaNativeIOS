@@ -9,6 +9,8 @@ target 'IGApp' do
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
   pod "FirebaseFirestoreSwift"
+  pod 'FirebaseStorage'
+  pod 'Kingfisher'
 
 end
 

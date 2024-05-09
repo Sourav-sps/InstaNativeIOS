@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct ProfileView: View {
+    let user:UserData
+    @State private var editProfileView = false
     var body: some View {
         NavigationView{
             ScrollView{
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
                         HStack(spacing: 6){
-                            Image("profile-1")
-                                .resizable()
-                                .frame(width: 80, height: 80)
-                            
+                            CircularProfileView(smallImage: false, user: user)
                             Spacer()
                             
                             HStack(spacing: 16){
@@ -46,25 +45,28 @@ struct ProfileView: View {
                         .padding(.horizontal)
                         
                         VStack(alignment: .leading,spacing: 1){
-                            Text("John Doe")
-                            Text("Coder | learner")
+                            Text(user.name)
+                            Text(user.bio ?? "")
                         }
                         .fontWeight(.regular)
                         .padding(.horizontal)
                         
                         HStack(spacing: 2){
-                            NavigationLink(value: "", label: {
-                                Text("Edit Profile")
-                                
+                            Button(action:{
+                                if user.isLoggedUser{
+                                    editProfileView.toggle()
+                                }else{
+                                                                }
+                            }, label: {
+                                Text(user.isLoggedUser ?  "Edit Profile": "Follow")
                             })
                             .frame(width: UIScreen.main.bounds.width/2.5)
                             .padding(.vertical,5)
-                            .background(.gray.opacity(0.8))
+                            .background(user.isLoggedUser ? .gray.opacity(0.8):Color(.systemBlue))
                             .cornerRadius(6)
                             
                             NavigationLink(value: "", label: {
                                 Text("Share Porfile")
-                                
                             })
                             .frame(width: UIScreen.main.bounds.width/2.5)
                             .frame(width: UIScreen.main.bounds.width/2.5)
@@ -90,6 +92,9 @@ struct ProfileView: View {
                     TabBarSection(tabIndex: 0)
                     Spacer()
                 }
+                .fullScreenCover(isPresented: $editProfileView, content: {
+                    EditProfileView(user: user)
+                })
                 .navigationTitle("Profile")
                 
                 .toolbar {
@@ -109,6 +114,6 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(user: userData[0])
     }
 }

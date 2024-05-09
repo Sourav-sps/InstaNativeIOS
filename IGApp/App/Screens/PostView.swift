@@ -8,13 +8,7 @@
 import SwiftUI
 
 struct PostView: View {
-    
-    let userData:[UserData] = [
-        .init(id:NSUUID().uuidString,name: "John Doe", image: "profile-1"),
-        .init(id:NSUUID().uuidString,name: "Tina D'crouz", image: "profile-2"),
-        .init(id:NSUUID().uuidString,name: "Akhilesh Singh", image: "profile-3"
-             )
-    ]
+   
     var body: some View {
         ScrollView{
             VStack(spacing: 26){
@@ -83,8 +77,7 @@ struct PostView: View {
                             HStack(spacing: 2){
                                 ForEach(Array(userData.enumerated()), id: \.element) { index, profile in
                                     ZStack {
-                                        Image(profile.image!)
-                                            .resizable()
+                                        CircularProfileView(smallImage: true, user: profile)
                                             .frame(width: 30, height: 30)
                                             .offset(x: CGFloat(index == 0 ? 0 : -15 * index))
                                             .zIndex(Double(userData.count - index))

@@ -17,8 +17,9 @@ struct ContentView: View {
             if viewModel.userSession == nil {
                 LoginView()
                     .environmentObject(LoginViewModel())
-            } else{
-                MainView()
+            } else if let currentUser = viewModel.currentUser {
+                
+                MainView(user: currentUser)
             }
         }
     }
